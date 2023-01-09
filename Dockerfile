@@ -1,26 +1,23 @@
-FROM alpine:3.6
-LABEL maintainer=doug.warren@gmail.com
+FROM alpine:3.17
+LABEL maintainer=ward.wouts@gmail.com
+
+ARG NOVNC_URL=https://github.com/novnc/noVNC/archive/refs/tags/v1.3.0.tar.gz
 
 ENV HOME=/root \
-	DEBIAN_FRONTEND=noninteractive \
-	LANG=en_US.UTF-8 \
-	LANGUAGE=en_US.UTF-8 \
-	LC_ALL=C.UTF-8 \
-	REMOTE_HOST=localhost \
-	REMOTE_PORT=5900
+    LANG=en_US.UTF-8 \
+    LANGUAGE=en_US.UTF-8 \
+    LC_ALL=C.UTF-8 \
+    REMOTE_HOST=localhost \
+    REMOTE_PORT=5900
 
-RUN apk --update --upgrade add git bash supervisor nodejs nodejs-npm \
-	&& git clone https://github.com/novnc/noVNC.git /root/noVNC \
-	&& git clone https://github.com/novnc/websockify /root/noVNC/utils/websockify \
-	&& rm -rf /root/noVNC/.git \
-	&& rm -rf /root/noVNC/utils/websockify/.git \
-	&& cd /root/noVNC \
-	&& npm install npm@latest \
-	&& npm install \
-	&& ./utils/use_require.js --as commonjs --with-app \
-	&& cp /root/noVNC/node_modules/requirejs/require.js /root/noVNC/build \
-	&& sed -i -- "s/ps -p/ps -o pid | grep/g" /root/noVNC/utils/launch.sh \
-	&& apk del git nodejs-npm nodejs
+RUN apk --update --upgrade add bash supervisor wget \
+    && mkdir -p /root/noVNC \
+    && cd /root/noVNC \
+    && wget ${NOVNC_URL} \
+    && echo tar --strip=1 -xaf $(basename ${NOVNC_URL}) \
+    && tar --strip=1 -xaf $(basename ${NOVNC_URL}) \
+    && rm $(basename ${NOVNC_URL}) \
+    && sed -i -- "s/ps -p/ps -o pid | grep/g" /root/noVNC/utils/novnc_proxy
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 

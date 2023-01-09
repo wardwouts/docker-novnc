@@ -17,7 +17,9 @@ Two environment variables exist in the docker file for configuration REMOTE_HOST
 ## Usage
 
 ```
-docker run -d -e REMOTE_HOST=192.168.86.135 -e REMOTE_PORT=5901 dougw/novnc
+docker run -d -e REMOTE_HOST=192.168.86.135 -e REMOTE_PORT=5901 wardwouts/novnc
 ```
 
-
+## Code
+The dockerfile and code can be found here:
+https://github.com/wardwouts/docker-novnc
