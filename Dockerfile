@@ -11,7 +11,7 @@ ENV HOME=/root \
     REMOTE_HOST=localhost \
     REMOTE_PORT=5900
 
-RUN apk --update --upgrade add bash supervisor wget \
+RUN apk --update --upgrade add git bash supervisor wget \
     && mkdir -p /root/noVNC \
     && cd /root/noVNC \
     && wget ${NOVNC_URL} \
