@@ -1,7 +1,8 @@
 FROM alpine:3.17
 LABEL maintainer=ward.wouts@gmail.com
 
-ARG NOVNC_URL=https://github.com/novnc/noVNC/archive/refs/tags/v1.3.0.tar.gz
+ARG VERSION=0
+ARG NOVNC_URL=https://github.com/novnc/noVNC/archive/refs/tags/v$VERSION.tar.gz
 
 ENV HOME=/root \
     LANG=en_US.UTF-8 \
