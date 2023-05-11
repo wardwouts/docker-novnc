@@ -9,7 +9,8 @@ ENV HOME=/root \
     LANGUAGE=en_US.UTF-8 \
     LC_ALL=C.UTF-8 \
     REMOTE_HOST=localhost \
-    REMOTE_PORT=5900
+    REMOTE_PORT=5900 \
+    LISTEN_PORT=8081
 
 RUN apk --update --upgrade add git bash supervisor wget \
     && mkdir -p /root/noVNC \
