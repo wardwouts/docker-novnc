@@ -2,4 +2,5 @@
 
 VERSION=$(cat VERSION)
 
-docker build --build-arg=VERSION=$VERSION -t wardwouts/novnc -t wardwouts/novnc:v$VERSION .
+unset TMPDIR
+podman build --build-arg=VERSION=$VERSION -t wardwouts/novnc -t wardwouts/novnc:v$VERSION .

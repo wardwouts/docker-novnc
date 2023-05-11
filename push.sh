@@ -2,5 +2,5 @@
 
 VERSION=$(cat VERSION)
 
-docker push wardwouts/novnc:latest
-docker push wardwouts/novnc:v$VERSION
+podman push wardwouts/novnc:latest
+podman push wardwouts/novnc:v$VERSION
